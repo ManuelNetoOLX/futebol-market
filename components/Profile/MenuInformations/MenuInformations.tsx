@@ -11,11 +11,6 @@ export default function MenuInformation() {
     },
     { text: "Email", icon: "mail-outline", information: "manuel.neto@cwi.com" },
     { text: "Telefone", icon: "call-outline", information: "(51) 99999-9999" },
-    {
-      text: "Mudar senha",
-      icon: "lock-closed-outline",
-      information: "***************",
-    },
   ];
 
   return (

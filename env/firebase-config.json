@@ -1,0 +1,9 @@
+{
+  "apiKey": "AIzaSyCxh5xHC2VWOkPEAEDR-6Mlzu-ZI1qP-bA",
+  "authDomain": "futebol-market.firebaseapp.com",
+  "databaseURL": "https://futebol-market-default-rtdb.firebaseio.com",
+  "projectId": "futebol-market",
+  "storageBucket": "futebol-market.appspot.com",
+  "messagingSenderId": "475360237573",
+  "appId": "1:475360237573:web:dcee3c6d041a627069a46c"
+}

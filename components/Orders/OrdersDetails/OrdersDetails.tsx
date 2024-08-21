@@ -1,8 +1,9 @@
 import { View } from "react-native";
-import ProductsList from "./ProductsList/ProductsList.container";
-import PaymentDetails from "./PaymentDetails/PaymentDetails.container";
-import DeliveryDetails from "./DeliveryDetails/DeliveryDetails.container";
+
 import { styles } from "./OrdersDetails.styles";
+import DeliveryDetails from "./DeliveryDetails/DeliveryDetails.container";
+
+import { PaymentDetails, ProductsList } from "@/components/Shared";
 
 export default function OrdersDetailsComponent() {
   return (

@@ -5,13 +5,16 @@ import { ValidPathname } from "@/constants/route";
 
 export default function MenuOptions() {
   const options: { text: string; icon: string; pathname: ValidPathname }[] = [
-    { text: "Perfil", icon: "person-outline", pathname: "/profile" },
-    { text: "Pedidos", icon: "bag-outline", pathname: "/orders" },
-    { text: "Endereço", icon: "location-outline", pathname: "/address" },
     {
-      text: "Formas de pagamento",
+      text: "Cartao de crédito ou débito",
       icon: "card-outline",
-      pathname: "/paymentsMethods",
+      pathname: "/",
+    },
+    { text: "Paypal", icon: "wallet-outline", pathname: "/orders" },
+    {
+      text: "Transferência bancária",
+      icon: "cash-outline",
+      pathname: "/",
     },
   ];
 

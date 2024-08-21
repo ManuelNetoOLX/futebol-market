@@ -14,10 +14,9 @@ export default function HomeScreen() {
             onChangeText={(e) => console.log(e)}
           />
         </View>
-
         <View style={styles.lineSeparator} />
         <CarouselComponent />
-        <ProductCard />
+        {/* <ProductCard /> */}
       </View>
     </SafeAreaView>
   );

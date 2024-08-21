@@ -27,18 +27,18 @@ export default function LoginFormScreen() {
   );
 
   const onSubmit = useCallback((values: Form) => {
-    console.log(values);
-
-    router.push("(tabs)");
+    router.push("/(tabs)");
   }, []);
 
   return (
     <View style={styles.container}>
       <Image
-        source={require("../assets/images/logo-frutopia.png")}
+        source={{
+          uri: "https://firebasestorage.googleapis.com/v0/b/futebol-market.appspot.com/o/app%2Flogo_app.webp?alt=media&token=6f9cc963-4f6c-4eae-8c1a-3a29ed8277fc",
+        }}
         style={styles.logo}
       />
-      <Text style={styles.title}>Frutas Intergalácticas</Text>
+      <Text style={styles.title}>Futebol Market</Text>
 
       <Formik
         initialValues={initialValues}
@@ -97,6 +97,7 @@ export default function LoginFormScreen() {
               <Link style={styles.signUp} href="/register">
                 Faça o registro
               </Link>
+              <Link href="/products"> Produtos </Link>
             </Text>
           </>
         )}
@@ -131,8 +132,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   logo: {
-    width: 72,
-    height: 72,
+    width: 172,
+    height: 172,
     marginBottom: 16,
     alignSelf: "center",
   },
@@ -151,7 +152,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
   },
   button: {
-    backgroundColor: "#DD9C1C",
+    backgroundColor: "#2E7D32",
     borderRadius: 5,
     width: "100%",
     height: 57,
@@ -174,7 +175,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   signUp: {
-    color: "#2A2210",
+    color: "#2E7D32",
     fontFamily: "PoppinsBold",
   },
   ssoButtons: {
@@ -183,7 +184,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   ssoButton: {
-    borderColor: "#EEEACC",
+    borderColor: "#2E7D32",
     borderRadius: 5,
     borderWidth: 1,
     paddingHorizontal: 20,
@@ -192,13 +193,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    color: "#E0E0E0",
+    color: "#2E7D32",
     fontFamily: "Poppins",
   },
   ssoButtonText: {
     fontSize: 14,
     fontWeight: "700",
-    color: "#E0E0E0",
+    color: "#2E7D32",
     fontFamily: "PoppinsBold",
     textAlign: "center",
     flex: 1,

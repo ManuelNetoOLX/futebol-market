@@ -24,10 +24,24 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="cart"
+        options={{
+          tabBarLabelStyle: { fontFamily: "PoppinsBold", fontSize: 10 },
+          title: "Carrinho",
+          tabBarIcon: ({ focused }) => (
+            <Ionicons
+              name={focused ? "cart" : "cart-outline"}
+              color="#2E7D32"
+              size={24}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="account"
         options={{
           tabBarLabelStyle: { fontFamily: "PoppinsBold", fontSize: 10 },
-          title: "Account",
+          title: "Conta",
           tabBarIcon: ({ focused }) => (
             <Ionicons
               name={focused ? "person" : "person-outline"}

@@ -1,68 +1,111 @@
-import { Input } from "@/components/Shared";
+import { useEffect } from "react";
 import { Link, router } from "expo-router";
-import { Formik } from "formik";
-import { useCallback, useMemo } from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+
+import { User } from "@/types/user.type";
+import { Input } from "@/components/Shared";
+import { useUserService } from "@/services/user/user.hook";
+
 import { z } from "zod";
+import { Formik, useFormik } from "formik";
 import { toFormikValidate } from "zod-formik-adapter";
 
-const FormSchema = z
-  .object({
-    name: z.string().min(3, "Nome precisa no mínimo de 3 caracteres"),
-    email: z.string().email("E-mail inválido"),
-    password: z.string().min(6, "Precisa de 6 ou mais caracteres"),
-    confirmPassword: z.string().min(6, "As senhas devem coincidir"),
-  })
-  .refine(({ password, confirmPassword }) => password == confirmPassword);
+const FormSchema = z.object({
+  name: z.string().min(3, "Nome precisa no mínimo de 3 caracteres"),
+  email: z.string().email("E-mail inválido"),
+  password: z.string().min(6, "Precisa de 6 ou mais caracteres"),
+  confirmPassword: z.string().min(6, "Precisa de 6 ou mais caracteres"),
+});
 
 type Form = z.infer<typeof FormSchema>;
 export default function RegisterFormScreen() {
-  const initialValues = useMemo(
-    () => ({
+  const { addUser, getUsers, loading, error } = useUserService();
+
+  const createUser = async (user: User) => {
+    try {
+      await addUser(user);
+      router.push({ pathname: "/" });
+    } catch (error) {
+      console.error("An error occurred while creating the user:", error);
+    }
+  };
+
+  const getAllUsers = async () => {
+    try {
+      const users = await getUsers();
+    } catch (error) {
+      console.error("An error occurred while fetching the users:", error);
+    }
+  };
+
+  useEffect(() => {
+    getAllUsers();
+  }, []);
+
+  const submitForm = async (values: Form) => {
+    const user: User = {
+      id: 0,
+      name: values.name,
+      email: values.email,
+      password: values.password,
+      phoneNumber: "",
+      address: {
+        street: "",
+        city: "",
+        state: "",
+        postalCode: "",
+        country: "",
+      },
+      dateOfBirth: new Date(),
+      registrationDate: new Date(),
+    };
+
+    if (user) {
+      createUser(user);
+    }
+  };
+
+  const { initialValues, handleSubmit } = useFormik({
+    initialValues: {
       name: "",
       email: "",
       password: "",
       confirmPassword: "",
-    }),
-    []
-  );
-
-  const onSubmit = useCallback((values: Form) => {
-    console.log(values);
-
-    router.push("(tabs)");
-  }, []);
+    },
+    onSubmit: submitForm,
+  });
 
   return (
     <View style={styles.container}>
       <Image
-        source={require("../assets/images/logo-frutopia.png")}
+        source={{
+          uri: "https://firebasestorage.googleapis.com/v0/b/futebol-market.appspot.com/o/app%2Flogo_app.webp?alt=media&token=6f9cc963-4f6c-4eae-8c1a-3a29ed8277fc",
+        }}
         style={styles.logo}
       />
-      <Text style={styles.title}>Nebula Nectar</Text>
+      <Text style={styles.title}>Futebol Market</Text>
+      {}
 
       <Formik
         initialValues={initialValues}
-        onSubmit={onSubmit}
+        onSubmit={submitForm}
         validate={toFormikValidate(FormSchema)}
       >
         {({
-          handleSubmit,
           handleChange,
           handleBlur,
+          handleSubmit,
           values,
           touched,
           errors,
-          isValid,
-          dirty,
         }) => (
           <>
             <Input
               iconName="person-outline"
               placeholder="Nome Completo"
-              onBlur={handleBlur("name")}
               onChangeText={handleChange("name")}
+              onBlur={handleBlur("name")}
               value={values.name}
             />
             {errors.name && touched.name && (
@@ -72,11 +115,11 @@ export default function RegisterFormScreen() {
             <Input
               iconName="mail-outline"
               placeholder="E-mail"
+              onChangeText={handleChange("email")}
+              onBlur={handleBlur("email")}
               textContentType="emailAddress"
               autoComplete="email"
               autoCapitalize="none"
-              onBlur={handleBlur("email")}
-              onChangeText={handleChange("email")}
               value={values.email}
             />
             {errors.email && touched.email && (
@@ -87,8 +130,8 @@ export default function RegisterFormScreen() {
               isPassword
               iconName="lock-closed-outline"
               placeholder="Senha"
-              onBlur={handleBlur("password")}
               onChangeText={handleChange("password")}
+              onBlur={handleBlur("password")}
               value={values.password}
             />
             {errors.password && touched.password && (
@@ -99,8 +142,8 @@ export default function RegisterFormScreen() {
               isPassword
               iconName="lock-closed-outline"
               placeholder="Senha (confirmar)"
-              onBlur={handleBlur("confirmPassword")}
               onChangeText={handleChange("confirmPassword")}
+              onBlur={handleBlur("confirmPassword")}
               value={values.confirmPassword}
             />
             {errors.confirmPassword && touched.confirmPassword && (
@@ -109,14 +152,15 @@ export default function RegisterFormScreen() {
 
             <TouchableOpacity
               style={styles.button}
-              disabled={!(isValid && dirty)}
               onPress={() => handleSubmit()}
+              disabled={loading}
             >
               <Text style={styles.buttonText}>Cadastrar</Text>
             </TouchableOpacity>
           </>
         )}
       </Formik>
+      {error && <Text style={styles.error}>{error}</Text>}
 
       <Text style={styles.text}>
         Já tem conta?{" "}
@@ -136,8 +180,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   logo: {
-    width: 72,
-    height: 72,
+    width: 172,
+    height: 172,
     marginBottom: 16,
     alignSelf: "center",
   },
@@ -160,7 +204,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 14,
-    fontWeight: "700",
     color: "#fff",
     fontFamily: "PoppinsBold",
   },

@@ -32,4 +32,9 @@ export const styles = StyleSheet.create({
     color: "#2E7D32",
     fontFamily: "PoppinsBold",
   },
+  wrapperAction: {
+    gap: 152,
+    display: "flex",
+    flexDirection: "row",
+  },
 });

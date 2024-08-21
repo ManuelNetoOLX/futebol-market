@@ -1,6 +1,11 @@
 import ProductsListView from "./ProductsList.view";
 
-export default function ProductsList() {
+interface Props {
+  removeIcon?: boolean;
+  onRemove?: () => void;
+}
+
+export default function ProductsList({ removeIcon, onRemove }: Props) {
   const listProducts = [
     {
       name: "Product 1",
@@ -14,5 +19,11 @@ export default function ProductsList() {
     },
   ];
 
-  return <ProductsListView listProducts={listProducts} />;
+  return (
+    <ProductsListView
+      onRemove={onRemove}
+      removeIcon={removeIcon}
+      listProducts={listProducts}
+    />
+  );
 }

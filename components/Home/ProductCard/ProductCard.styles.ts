@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
     fontFamily: "PoppinsBold",
     fontWeight: "bold",
     fontSize: 14,
-    color: "#2E7D32",
+    color: "#F18F35",
   },
   wrapperProduct: {
     paddingHorizontal: 16,
@@ -44,7 +44,7 @@ export const styles = StyleSheet.create({
     fontWeight: "500",
     fontSize: 14,
     marginTop: 8,
-    color: "#2E7D32",
+    color: "#F18F35",
   },
   discount: {
     flexDirection: "row",
@@ -55,7 +55,7 @@ export const styles = StyleSheet.create({
     fontFamily: "Poppins",
     fontWeight: "400",
     fontSize: 10,
-    color: "#E0E0E0",
+    color: "#585857",
     textDecorationLine: "line-through",
   },
   discountTextRight: {

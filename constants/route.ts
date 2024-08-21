@@ -1,5 +1,6 @@
 export type ValidPathname =
   | "/"
+  | "/login"
   | "/(tabs)"
   | "/(tabs)/"
   | "/(tabs)/account"
@@ -8,7 +9,10 @@ export type ValidPathname =
   | "/profile"
   | "/register"
   | "/address"
+  | "/paymentsMethods"
   | "/orders"
+  | "/status"
+  | "/cart"
   | `./${string}`
   | `../${string}`
   | ".."

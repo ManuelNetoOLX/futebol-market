@@ -3,8 +3,12 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 
 import { styles } from "./ProductCard.styles";
 import { useCountStore } from "@/state/hooks/cart";
+import { Product } from "@/types/product.type";
 
-export default function ProductCard() {
+type Props = {
+  product: Product;
+};
+export default function ProductCard({ product }: Props) {
   const { increment, decrement, count } = useCountStore();
 
   return (
@@ -15,34 +19,27 @@ export default function ProductCard() {
       </View>
       <View style={styles.wrapperProduct}>
         <View style={styles.border}>
-          <Image
-            source={require("../../../assets/images/astro.png")}
-            style={styles.image}
-          />
-          <Text style={styles.titleProduct}>Meteorite Malt</Text>
-          <Text style={styles.price}>R$ 118,04</Text>
+          {product.imageUrl && (
+            <Image source={{ uri: product.imageUrl }} style={styles.image} />
+          )}
+          <Text style={styles.titleProduct}>{product.name}</Text>
+          <Text style={styles.price}>R$ {product.price}</Text>
+        </View>
+        <View style={styles.wrapperButton}>
+          <TouchableOpacity
+            style={styles.minus}
+            onPress={() => decrement(1)}
+            disabled={count === 0}
+          >
+            <Text style={styles.minusText}> - </Text>
+          </TouchableOpacity>
 
-          <View style={styles.discount}>
-            <Text style={styles.discountText}>$155,32</Text>
-            <Text style={styles.discountTextRight}>24% off</Text>
+          <View style={styles.quantity}>
+            <Text style={styles.quantityText}> {count} </Text>
           </View>
-
-          <View style={styles.wrapperButton}>
-            <TouchableOpacity
-              style={styles.minus}
-              onPress={() => decrement(1)}
-              disabled={count === 0}
-            >
-              <Text style={styles.minusText}> - </Text>
-            </TouchableOpacity>
-
-            <View style={styles.quantity}>
-              <Text style={styles.quantityText}> {count} </Text>
-            </View>
-            <TouchableOpacity style={styles.plus} onPress={() => increment(1)}>
-              <Text style={styles.plusText}> + </Text>
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity style={styles.plus} onPress={() => increment(1)}>
+            <Text style={styles.plusText}> + </Text>
+          </TouchableOpacity>
         </View>
       </View>
     </>
